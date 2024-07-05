@@ -27,4 +27,12 @@ describe("Cadastrar usuario UseCase", function () {
       new AppError(AppError.dependencias)
     );
   });
+
+  test("Deve retornar um throw AppError se algum parametro obrigatorio nao for fornecido", async function () {
+    const sut = cadastrarUsuarioUseCase({ usuariosRepository });
+
+    await expect(() => sut({})).rejects.toThrow(
+      new AppError(AppError.parametroObrigatoriosAusentes)
+    );
+  });
 });
