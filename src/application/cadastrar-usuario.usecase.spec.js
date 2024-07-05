@@ -1,4 +1,4 @@
-const cadastrarUsuarioUsecase = require("./cadastrar-usuario.usecase");
+const cadastrarUsuarioUseCase = require("./cadastrar-usuario.usecase");
 
 describe("Cadastrar usuario UseCase", function () {
   const usuariosRepository = {
@@ -13,11 +13,17 @@ describe("Cadastrar usuario UseCase", function () {
       email: "email_valido",
     };
 
-    const sut = cadastrarUsuarioUsecase({ usuariosRepository });
+    const sut = cadastrarUsuarioUseCase({ usuariosRepository });
     const output = await sut(usuarioDTO);
 
     expect(output).toBeUndefined();
     expect(usuariosRepository.cadastrar).toHaveBeenCalledWith(usuarioDTO);
     expect(usuariosRepository.cadastrar).toHaveBeenCalledTimes(1);
+  });
+
+  test("Deve retornar um throw AppError se o usuariosRepository nao for fornecido", function () {
+    expect(() => cadastrarUsuarioUseCase({})).toThrow(
+      "usuarioRepository nao fornecido"
+    );
   });
 });
