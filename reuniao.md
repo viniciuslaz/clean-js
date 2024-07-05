@@ -34,3 +34,6 @@
 [] Mostrar todos os emprestimos pendentes, com o nome do livro, nome do usuario, CPF, data de saida e data de retorno. Ordenados pela data de retorno mais antiga
 
 ## Estruturas
+
+##UsuariosRepository
+[] cadastrar: ({nome_completo, CPF, telefone, endereco, email}) => Promise<void>
