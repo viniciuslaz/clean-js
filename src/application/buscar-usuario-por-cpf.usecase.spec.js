@@ -26,4 +26,19 @@ describe("Buscar usuario por CPF UseCase", function () {
     expect(usuarioRepository.buscaPorCPF).toHaveBeenCalledWith(cpfDTO.CPF);
     expect(usuarioRepository.buscaPorCPF).toHaveBeenCalledTimes(1);
   });
+
+  test("Deve retornar null caso o CPF não esteja cadastrado", async function () {
+    const cpfDTO = {
+      CPF: "CPF_nao_cadastrado",
+    };
+
+    usuarioRepository.buscaPorCPF.mockResolvedValue(null);
+
+    const sut = buscarUsuarioPorCpfUsecase({ usuarioRepository });
+    const output = await sut(cpfDTO);
+
+    expect(output.right).toBeNull();
+    expect(usuarioRepository.buscaPorCPF).toHaveBeenCalledWith(cpfDTO.CPF);
+    expect(usuarioRepository.buscaPorCPF).toHaveBeenCalledTimes(1);
+  });
 });
