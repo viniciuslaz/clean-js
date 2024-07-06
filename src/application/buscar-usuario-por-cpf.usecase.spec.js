@@ -48,4 +48,12 @@ describe("Buscar usuario por CPF UseCase", function () {
       new AppError(AppError.dependencias)
     );
   });
+
+  test("Deve retornar um throw AppError se o CPF não for fornecido", async function () {
+    const sut = buscarUsuarioPorCpfUsecase({ usuarioRepository });
+
+    await expect(() => sut({})).rejects.toThrow(
+      new AppError(AppError.parametroObrigatoriosAusentes)
+    );
+  });
 });
