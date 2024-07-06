@@ -16,6 +16,12 @@ module.exports = function cadastrarUsuarioUseCase({ usuariosRepository }) {
     if (checaSeJaExisteUmUsuarioCadastradoComOCPF)
       return Either.Left(Either.valorJaCadastrado("CPF"));
 
+    const checaSeJaExisteUmUsuarioCadastradoComOEmail =
+      await usuariosRepository.existePorEmail(email);
+
+    if (checaSeJaExisteUmUsuarioCadastradoComOEmail)
+      return Either.Left(Either.valorJaCadastrado("Email"));
+
     await usuariosRepository.cadastrar({
       nome_completo,
       CPF,
