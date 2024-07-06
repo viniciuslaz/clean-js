@@ -9,6 +9,12 @@ module.exports = function cadastrarUsuarioUseCase({ usuariosRepository }) {
     if (!checaCampos)
       throw new AppError(AppError.parametroObrigatoriosAusentes);
 
+    const checaSeJaExisteUmUsuarioCadastradoComOCPF =
+      await usuariosRepository.existePorCPF(CPF);
+
+    if (checaSeJaExisteUmUsuarioCadastradoComOCPF)
+      throw new AppError("CPF já cadastrado");
+
     await usuariosRepository.cadastrar({
       nome_completo,
       CPF,
